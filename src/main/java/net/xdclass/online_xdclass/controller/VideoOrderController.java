@@ -27,7 +27,7 @@ public class VideoOrderController {
      * @return
      */
     @RequestMapping("save")
-    public JsonData saveOrder(@RequestBody VideoOrderRequest videoOrderRequest, HttpServletRequest request){
+    public JsonData saveOrder(@RequestBody(required=false) VideoOrderRequest videoOrderRequest, HttpServletRequest request){
 
         Integer userId = (Integer) request.getAttribute("user_id");
 

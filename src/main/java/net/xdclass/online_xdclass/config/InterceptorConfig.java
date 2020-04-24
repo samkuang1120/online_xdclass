@@ -1,5 +1,6 @@
 package net.xdclass.online_xdclass.config;
 
+import net.xdclass.online_xdclass.interceptor.CorsInterceptor;
 import net.xdclass.online_xdclass.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,13 +24,27 @@ public class InterceptorConfig implements WebMvcConfigurer {
     }
 
 
+
+    @Bean
+    CorsInterceptor corsInterceptor(){
+        return new CorsInterceptor();
+    }
+
+
+
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
+
         //拦截全部
+        // 跨域拦截器需放在最上面
+        registry.addInterceptor(corsInterceptor()).addPathPatterns("/**");
+
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/api/v1/pri/*/*/**")
                 //不拦截哪些路径   斜杠一定要加
                 .excludePathPatterns("/api/v1/pri/user/login","/api/v1/pri/user/register");
+
 
         WebMvcConfigurer.super.addInterceptors(registry);
 
