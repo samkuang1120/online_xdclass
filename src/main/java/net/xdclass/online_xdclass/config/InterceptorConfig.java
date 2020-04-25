@@ -23,8 +23,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
         return new LoginInterceptor();
     }
 
-
-
     @Bean
     CorsInterceptor corsInterceptor(){
         return new CorsInterceptor();
@@ -37,9 +35,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
 
-        //拦截全部
-        // 跨域拦截器需放在最上面
+        /**
+         * 拦截全部路径，这个跨域需要放在最上面
+         */
         registry.addInterceptor(corsInterceptor()).addPathPatterns("/**");
+
 
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/api/v1/pri/*/*/**")
                 //不拦截哪些路径   斜杠一定要加
